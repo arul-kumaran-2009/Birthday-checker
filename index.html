@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday checker</title>
+    <title>Birthday Checker</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -13,9 +13,71 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(45deg, #f06, #f79);
+            background: linear-gradient(45deg, #f06, #f79, #6f9, #69f);
+            animation: gradientShift 8s infinite alternate;
             flex-direction: column;
+            overflow: hidden;
         }
+
+        .background-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: moveCircle 12s infinite ease-in-out;
+        }
+
+        .circle:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 15%;
+            animation-duration: 10s;
+        }
+
+        .circle:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            left: 70%;
+            animation-duration: 12s;
+        }
+
+        .circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 75%;
+            left: 30%;
+            animation-duration: 8s;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes moveCircle {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(30px, -30px);
+            }
+        }
+
         .container {
             text-align: center;
             background: white;
@@ -27,12 +89,14 @@
             transform: scale(1);
             animation: fadeIn 1s ease-out;
         }
+
         h1 {
             font-size: 3rem;
             color: #333;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
+
         button {
             margin-top: 20px;
             padding: 15px 25px;
@@ -44,14 +108,17 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
         }
+
         button:hover {
             background-color: #0056b3;
             transform: scale(1.05);
         }
+
         .tabs {
             display: none;
             margin-top: 30px;
         }
+
         .tabs button {
             margin: 10px;
             padding: 12px 25px;
@@ -63,33 +130,40 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
         }
+
         .tabs button:hover {
             background-color: #bdbdbd;
             transform: scale(1.05);
         }
+
         .image-container {
             margin-top: 30px;
             opacity: 0;
             animation: fadeInImage 1s ease-out forwards;
         }
+
         .image-container img {
             max-width: 100%;
             max-height: 500px;
             border-radius: 12px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
+
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
+
         @keyframes fadeInImage {
             0% { opacity: 0; transform: scale(0.95); }
             100% { opacity: 1; transform: scale(1); }
         }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
             }
+
             button, .tabs button {
                 font-size: 1.1rem;
                 padding: 10px 20px;
@@ -98,8 +172,14 @@
     </style>
 </head>
 <body>
+    <div class="background-circles">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
     <div class="container">
-        <h1>When is the birthday of your class mate</h1>
+        <h1>When is the birthday of your classmate?</h1>
         <button id="startButton">Let us check</button>
         <div class="tabs" id="tabs">
             <button onclick="showImage(1)">January</button>
@@ -135,8 +215,7 @@
             const images = {
                 1: 'january.jpg',
                 2: 'february.jpg',
-                3: 'january.jpg.png',
-                
+                3: 'march.jpg',
             };
 
             memoryImage.src = images[month];
