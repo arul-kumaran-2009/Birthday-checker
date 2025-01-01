@@ -140,7 +140,6 @@
             margin-top: 30px;
             opacity: 0;
             animation: fadeInName 1s ease-out forwards;
-            position: relative;
         }
 
         .name-container p {
@@ -151,14 +150,14 @@
 
         .celebration {
             position: absolute;
-            top: 50%;
+            top: 10%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0);
+            transform: translateX(-50%);
             font-size: 2rem;
-            color: #FF5733;
+            color: #ff4081;
             font-weight: bold;
-            animation: popEffect 1s ease-out forwards;
-            text-shadow: 2px 2px 10px rgba(255, 87, 51, 0.8);
+            animation: fadeOutCelebration 3s ease-in-out forwards;
+            text-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
         }
 
         @keyframes fadeIn {
@@ -171,10 +170,9 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        @keyframes popEffect {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        @keyframes fadeOutCelebration {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-30px); }
         }
 
         @media (max-width: 768px) {
@@ -215,7 +213,6 @@
         </div>
         <div class="name-container" id="nameContainer">
             <p id="nameDisplay"></p>
-            <div class="celebration" id="celebrationEffect">Happy Birthday!</div>
         </div>
     </div>
 
@@ -224,7 +221,6 @@
         const tabs = document.getElementById('tabs');
         const nameContainer = document.getElementById('nameContainer');
         const nameDisplay = document.getElementById('nameDisplay');
-        const celebrationEffect = document.getElementById('celebrationEffect');
 
         startButton.addEventListener('click', () => {
             startButton.style.display = 'none';
@@ -253,18 +249,30 @@
                 : 'No one is born in this month.';
 
             nameContainer.style.opacity = 0; // Fade out before switching
-            celebrationEffect.style.animation = 'none'; // Reset celebration animation
             setTimeout(() => {
                 nameDisplay.textContent = displayText;
                 nameContainer.style.opacity = 1; // Fade in after switching
+
                 if (monthNames.length > 0) {
-                    celebrationEffect.style.animation = 'popEffect 1s ease-out forwards';
+                    showCelebration();
                 }
             }, 500);
+        }
+
+        function showCelebration() {
+            const celebrationText = document.createElement('div');
+            celebrationText.classList.add('celebration');
+            celebrationText.textContent = '🎉 Happy Birthday! 🎉';
+            document.body.appendChild(celebrationText);
+
+            setTimeout(() => {
+                celebrationText.remove();
+            }, 3000); // Remove after animation
         }
     </script>
 </body>
 </html>
+
 
 
 
