@@ -212,28 +212,33 @@
 
         function showName(month) {
             const names = {
-                1: 'Alice',
-                2: 'Bob',
-                3: 'Charlie',
-                4: 'David',
-                5: 'Emma',
-                6: 'Fiona',
-                7: 'George',
-                8: 'Hannah',
-                9: 'Ian',
-                10: 'Jackie',
-                11: 'Kara',
-                12: 'Liam'
+                1: ['Alice', 'Alan'],
+                2: ['Bob', 'Bella'],
+                3: ['Charlie', 'Chloe'],
+                4: ['David', 'Diana'],
+                5: ['Emma', 'Ethan'],
+                6: ['Fiona', 'Frank'],
+                7: ['George', 'Grace'],
+                8: ['Hannah', 'Henry'],
+                9: ['Ian', 'Isla'],
+                10: ['Jackie', 'James'],
+                11: ['Kara', 'Kevin'],
+                12: ['Liam', 'Lily']
             };
 
-            const name = names[month] || 'No one';
+            const monthNames = names[month] || [];
+            const displayText = monthNames.length > 0 
+                ? `The people born in this month are: ${monthNames.join(', ')}` 
+                : 'No one is born in this month.';
+
             nameContainer.style.opacity = 0; // Fade out before switching
             setTimeout(() => {
-                nameDisplay.textContent = `The person born in this month is: ${name}`;
+                nameDisplay.textContent = displayText;
                 nameContainer.style.opacity = 1; // Fade in after switching
             }, 500);
         }
     </script>
 </body>
 </html>
+
 
