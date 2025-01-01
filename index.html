@@ -140,12 +140,25 @@
             margin-top: 30px;
             opacity: 0;
             animation: fadeInName 1s ease-out forwards;
+            position: relative;
         }
 
         .name-container p {
             font-size: 1.5rem;
             color: #555;
             font-weight: bold;
+        }
+
+        .celebration {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 2rem;
+            color: #FF5733;
+            font-weight: bold;
+            animation: popEffect 1s ease-out forwards;
+            text-shadow: 2px 2px 10px rgba(255, 87, 51, 0.8);
         }
 
         @keyframes fadeIn {
@@ -156,6 +169,12 @@
         @keyframes fadeInName {
             0% { opacity: 0; transform: scale(0.95); }
             100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes popEffect {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
         @media (max-width: 768px) {
@@ -196,6 +215,7 @@
         </div>
         <div class="name-container" id="nameContainer">
             <p id="nameDisplay"></p>
+            <div class="celebration" id="celebrationEffect">Happy Birthday!</div>
         </div>
     </div>
 
@@ -204,6 +224,7 @@
         const tabs = document.getElementById('tabs');
         const nameContainer = document.getElementById('nameContainer');
         const nameDisplay = document.getElementById('nameDisplay');
+        const celebrationEffect = document.getElementById('celebrationEffect');
 
         startButton.addEventListener('click', () => {
             startButton.style.display = 'none';
@@ -212,7 +233,7 @@
 
         function showName(month) {
             const names = {
-                1: ['Alice'],
+                1: ['Alice', 'Alan'],
                 2: ['Bob', 'Bella'],
                 3: ['Charlie', 'Chloe'],
                 4: ['David', 'Diana'],
@@ -232,13 +253,18 @@
                 : 'No one is born in this month.';
 
             nameContainer.style.opacity = 0; // Fade out before switching
+            celebrationEffect.style.animation = 'none'; // Reset celebration animation
             setTimeout(() => {
                 nameDisplay.textContent = displayText;
                 nameContainer.style.opacity = 1; // Fade in after switching
+                if (monthNames.length > 0) {
+                    celebrationEffect.style.animation = 'popEffect 1s ease-out forwards';
+                }
             }, 500);
         }
     </script>
 </body>
 </html>
+
 
 
