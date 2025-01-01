@@ -136,17 +136,16 @@
             transform: scale(1.05);
         }
 
-        .image-container {
+        .name-container {
             margin-top: 30px;
             opacity: 0;
-            animation: fadeInImage 1s ease-out forwards;
+            animation: fadeInName 1s ease-out forwards;
         }
 
-        .image-container img {
-            max-width: 100%;
-            max-height: 500px;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .name-container p {
+            font-size: 1.5rem;
+            color: #555;
+            font-weight: bold;
         }
 
         @keyframes fadeIn {
@@ -154,7 +153,7 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeInImage {
+        @keyframes fadeInName {
             0% { opacity: 0; transform: scale(0.95); }
             100% { opacity: 1; transform: scale(1); }
         }
@@ -182,49 +181,59 @@
         <h1>When is the birthday of your classmate?</h1>
         <button id="startButton">Let us check</button>
         <div class="tabs" id="tabs">
-            <button onclick="showImage(1)">January</button>
-            <button onclick="showImage(2)">February</button>
-            <button onclick="showImage(3)">March</button>
-            <button onclick="showImage(4)">April</button>
-            <button onclick="showImage(5)">May</button>
-            <button onclick="showImage(6)">June</button>
-            <button onclick="showImage(7)">July</button>
-            <button onclick="showImage(8)">August</button>
-            <button onclick="showImage(9)">September</button>
-            <button onclick="showImage(10)">October</button>
-            <button onclick="showImage(11)">November</button>
-            <button onclick="showImage(12)">December</button>
+            <button onclick="showName(1)">January</button>
+            <button onclick="showName(2)">February</button>
+            <button onclick="showName(3)">March</button>
+            <button onclick="showName(4)">April</button>
+            <button onclick="showName(5)">May</button>
+            <button onclick="showName(6)">June</button>
+            <button onclick="showName(7)">July</button>
+            <button onclick="showName(8)">August</button>
+            <button onclick="showName(9)">September</button>
+            <button onclick="showName(10)">October</button>
+            <button onclick="showName(11)">November</button>
+            <button onclick="showName(12)">December</button>
         </div>
-        <div class="image-container" id="imageContainer">
-            <img id="memoryImage" src="" alt="Memory Image" style="display: none;">
+        <div class="name-container" id="nameContainer">
+            <p id="nameDisplay"></p>
         </div>
     </div>
 
     <script>
         const startButton = document.getElementById('startButton');
         const tabs = document.getElementById('tabs');
-        const imageContainer = document.getElementById('imageContainer');
-        const memoryImage = document.getElementById('memoryImage');
+        const nameContainer = document.getElementById('nameContainer');
+        const nameDisplay = document.getElementById('nameDisplay');
 
         startButton.addEventListener('click', () => {
             startButton.style.display = 'none';
             tabs.style.display = 'block';
         });
 
-        function showImage(month) {
-            const images = {
-                1: 'january.jpg',
-                2: 'february.jpg',
-                3: 'march.jpg',
+        function showName(month) {
+            const names = {
+                1: 'Alice',
+                2: 'Bob',
+                3: 'Charlie',
+                4: 'David',
+                5: 'Emma',
+                6: 'Fiona',
+                7: 'George',
+                8: 'Hannah',
+                9: 'Ian',
+                10: 'Jackie',
+                11: 'Kara',
+                12: 'Liam'
             };
 
-            memoryImage.src = images[month];
-            imageContainer.style.opacity = 0;  // Fade out before switching
+            const name = names[month] || 'No one';
+            nameContainer.style.opacity = 0; // Fade out before switching
             setTimeout(() => {
-                memoryImage.style.display = 'block';
-                imageContainer.style.opacity = 1;  // Fade in after switching
+                nameDisplay.textContent = `The person born in this month is: ${name}`;
+                nameContainer.style.opacity = 1; // Fade in after switching
             }, 500);
         }
     </script>
 </body>
 </html>
+
